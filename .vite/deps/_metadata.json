@@ -1,0 +1,49 @@
+{
+  "hash": "3313cfe3",
+  "configHash": "8283dabc",
+  "lockfileHash": "d050e16d",
+  "browserHash": "446e4722",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "4bd2596e",
+      "needsInterop": true
+    },
+    "@chakra-ui/react": {
+      "src": "../../node_modules/.pnpm/@chakra-ui+react@2.10.3_@emotion+react@11.13.3_@types+react@18.3.12_react@18.3.1__@emotion+st_xsmp2znqelx4gkwzteum2lugtu/node_modules/@chakra-ui/react/dist/esm/index.mjs",
+      "file": "@chakra-ui_react.js",
+      "fileHash": "fc28f7ed",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/.pnpm/react@18.3.1/node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "5699f205",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "1cc6063d",
+      "needsInterop": true
+    },
+    "@chakra-ui/icons": {
+      "src": "../../node_modules/.pnpm/@chakra-ui+icons@2.2.4_@chakra-ui+react@2.10.3_@emotion+react@11.13.3_@types+react@18.3.12_re_curqeo5na7zbfvnsesw72bt4qu/node_modules/@chakra-ui/icons/dist/esm/index.mjs",
+      "file": "@chakra-ui_icons.js",
+      "fileHash": "172ed6ab",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-T6CK6PS5": {
+      "file": "chunk-T6CK6PS5.js"
+    },
+    "chunk-A7D3Q6YL": {
+      "file": "chunk-A7D3Q6YL.js"
+    },
+    "chunk-A5UQXRKC": {
+      "file": "chunk-A5UQXRKC.js"
+    }
+  }
+}
