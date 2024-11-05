@@ -28,7 +28,7 @@ describe('getFilteredEvents', () => {
       notificationTime: 0,
     },
     {
-      id: '2',
+      id: '3',
       title: 'Event 2',
       date: '2025-01-01',
       startTime: '10:00',
@@ -85,9 +85,9 @@ describe('getFilteredEvents', () => {
   it('월의 경계에 있는 이벤트를 올바르게 필터링한다', () => {
     const events: Event[] = [
       {
-        id: '1',
+        id: '4',
         title: 'Event 1',
-        date: '2024-10-30',
+        date: '2024-08-30',
         startTime: '10:00',
         endTime: '19:00',
         description: '',
@@ -97,9 +97,9 @@ describe('getFilteredEvents', () => {
         notificationTime: 0,
       },
       {
-        id: '2',
+        id: '5',
         title: 'Event 2',
-        date: '2024-12-01',
+        date: '2024-09-01',
         startTime: '10:00',
         endTime: '19:00',
         description: '',
@@ -109,7 +109,7 @@ describe('getFilteredEvents', () => {
         notificationTime: 0,
       },
     ];
-    const currentDate = new Date('2024-11-01');
+    const currentDate = new Date('2024-08-01');
     const filteredEvent = getFilteredEvents(events, '', currentDate, 'month');
     expect(filteredEvent).toHaveLength(1);
     expect(filteredEvent.map((item) => item.title)).toEqual(['Event 1']);
