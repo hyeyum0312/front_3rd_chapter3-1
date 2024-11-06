@@ -16,7 +16,6 @@ describe('초기 상태', () => {
 
   it('holidays는 10월 휴일인 개천절, 한글날이 지정되어 있어야 한다', () => {
     const { result } = renderHook(() => useCalendarView());
-    console.log('result', result);
     expect(result.current.holidays).toEqual({ '2024-10-03': '개천절', '2024-10-09': '한글날' });
   });
 });

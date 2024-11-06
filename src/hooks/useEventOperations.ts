@@ -10,7 +10,6 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
   const fetchEvents = async () => {
     try {
       const response = await fetch('/api/events');
-      console.log('response', response);
 
       if (!response.ok) {
         throw new Error('Failed to fetch events');
