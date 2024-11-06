@@ -1,15 +1,17 @@
 import { useToast } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Event, EventForm } from '../types';
 
 export const useEventOperations = (editing: boolean, onSave?: () => void) => {
   const [events, setEvents] = useState<Event[]>([]);
   const toast = useToast();
+  const isInitialized = useRef(false); // 초기화 상태를 저장할 useRef 추가
 
   const fetchEvents = async () => {
     try {
       const response = await fetch('/api/events');
+      console.log('response', response);
 
       if (!response.ok) {
         throw new Error('Failed to fetch events');
@@ -95,12 +97,16 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
   };
 
   async function init() {
-    await fetchEvents();
-    toast({
-      title: '일정 로딩 완료!',
-      status: 'info',
-      duration: 1000,
-    });
+    if (!isInitialized.current) {
+      // 이미 초기화되었는지 확인
+      await fetchEvents();
+      toast({
+        title: '일정 로딩 완료!',
+        status: 'info',
+        duration: 1000,
+      });
+      isInitialized.current = true; // 초기화 완료로 상태 변경
+    }
   }
 
   useEffect(() => {
