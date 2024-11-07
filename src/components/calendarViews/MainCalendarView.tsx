@@ -1,18 +1,16 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Heading, HStack, IconButton, Select, VStack } from '@chakra-ui/react';
 
+import React from 'react';
+
 import { MonthlyCalendar } from './MonthlyCalendar';
 import { WeeklyCalender } from './WeeklyCalendar';
 import { useCalendarView } from '../../hooks/useCalendarView';
-import { useEventForm } from '../../hooks/useEventForm';
-import { useEventOperations } from '../../hooks/useEventOperations';
 import { useNotifications } from '../../hooks/useNotifications';
 import { useSearch } from '../../hooks/useSearch';
 
-export const MainCalendarView = () => {
-  const { editingEvent, setEditingEvent } = useEventForm();
+export const MainCalendarView = React.memo(({ events }) => {
   const { view, setView, navigate, currentDate, holidays } = useCalendarView();
-  const { events } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
   const { filteredEvents } = useSearch(events, currentDate, view);
   const { notifiedEvents } = useNotifications(events);
 
@@ -60,4 +58,4 @@ export const MainCalendarView = () => {
       )}
     </VStack>
   );
-};
+});

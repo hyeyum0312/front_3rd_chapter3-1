@@ -1,56 +1,21 @@
 import { useToast } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
+import { useFetchEvents } from './useFetchEvents';
+import { deleteEventApi } from '../apis/deleteEventApi';
+import { saveEventApi } from '../apis/saveEventApi';
 import { Event, EventForm } from '../types';
 
 export const useEventOperations = (editing: boolean, onSave?: () => void) => {
-  const [events, setEvents] = useState<Event[]>([]);
   const toast = useToast();
-  const isInitialized = useRef(false); // 초기화 상태를 저장할 useRef 추가
+  const { fetchEvents } = useFetchEvents();
 
-  const fetchEvents = async () => {
-    try {
-      const response = await fetch('/api/events');
-      console.log('response', response);
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch events');
-      }
-      const { events } = await response.json();
-
-      setEvents(events);
-    } catch (error) {
-      console.error('Error fetching events:', error);
-      toast({
-        title: '이벤트 로딩 실패',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-  };
-
+  // 이벤트 저장 함수
   const saveEvent = async (eventData: Event | EventForm) => {
     try {
-      let response;
-      if (editing) {
-        response = await fetch(`/api/events/${(eventData as Event).id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(eventData),
-        });
-      } else {
-        response = await fetch('/api/events', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(eventData),
-        });
-      }
+      await saveEventApi(eventData, editing); // API 호출
 
-      if (!response.ok) {
-        throw new Error('Failed to save event');
-      }
-
+      // 이벤트 목록 업데이트
       await fetchEvents();
       onSave?.();
       toast({
@@ -70,15 +35,14 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
     }
   };
 
+  // 이벤트 삭제 함수
   const deleteEvent = async (id: string) => {
     try {
-      const response = await fetch(`/api/events/${id}`, { method: 'DELETE' });
+      await deleteEventApi(id); // API 호출
 
-      if (!response.ok) {
-        throw new Error('Failed to delete event');
-      }
-
+      // 이벤트 목록 업데이트
       await fetchEvents();
+
       toast({
         title: '일정이 삭제되었습니다.',
         status: 'info',
@@ -96,23 +60,5 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
     }
   };
 
-  async function init() {
-    if (!isInitialized.current) {
-      // 이미 초기화되었는지 확인
-      await fetchEvents();
-      toast({
-        title: '일정 로딩 완료!',
-        status: 'info',
-        duration: 1000,
-      });
-      isInitialized.current = true; // 초기화 완료로 상태 변경
-    }
-  }
-
-  useEffect(() => {
-    init();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return { events, fetchEvents, saveEvent, deleteEvent };
+  return { saveEvent, deleteEvent };
 };

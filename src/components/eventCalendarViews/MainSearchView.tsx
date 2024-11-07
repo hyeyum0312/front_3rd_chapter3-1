@@ -7,11 +7,9 @@ import { useEventOperations } from '../../hooks/useEventOperations';
 import { useNotifications } from '../../hooks/useNotifications';
 import { useSearch } from '../../hooks/useSearch';
 
-export const MainSearchView = () => {
+export const MainSearchView = ({ events }) => {
   const { editingEvent, setEditingEvent, editEvent } = useEventForm();
-  const { events, deleteEvent } = useEventOperations(Boolean(editingEvent), () =>
-    setEditingEvent(null)
-  );
+  const { deleteEvent } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
   const { view, currentDate } = useCalendarView();
   const { searchTerm, filteredEvents, setSearchTerm } = useSearch(events, currentDate, view);
   const { notifiedEvents } = useNotifications(events);

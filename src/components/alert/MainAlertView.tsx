@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 
+import { useAlert } from '../../hooks/useAlert';
 import { useEventForm } from '../../hooks/useEventForm';
 import { useEventOperations } from '../../hooks/useEventOperations';
 
@@ -31,7 +32,8 @@ export const MainAlertView = () => {
     setEditingEvent,
   } = useEventForm();
 
-  const [isOverlapDialogOpen, setIsOverlapDialogOpen] = useState(false);
+  const { isOverlapDialogOpen, setIsOverlapDialogOpen } = useAlert();
+
   const [overlappingEvents] = useState<Event[]>([]);
 
   const cancelRef = useRef<HTMLButtonElement>(null);

@@ -20,7 +20,7 @@ import { Event, EventForm, RepeatType } from '../types';
 import { findOverlappingEvents } from '../utils/eventOverlap';
 import { getTimeErrorMessage } from '../utils/timeValidation';
 
-export const EventScheduleForm = () => {
+export const EventScheduleForm = ({ events }) => {
   const {
     title,
     setTitle,
@@ -57,9 +57,7 @@ export const EventScheduleForm = () => {
   const [, setIsOverlapDialogOpen] = useState(false);
   const [, setOverlappingEvents] = useState<Event[]>([]);
 
-  const { events, saveEvent } = useEventOperations(Boolean(editingEvent), () =>
-    setEditingEvent(null)
-  );
+  const { saveEvent } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
 
   const addOrUpdateEvent = async () => {
     if (!title || !date || !startTime || !endTime) {
