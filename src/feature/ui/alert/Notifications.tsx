@@ -1,7 +1,5 @@
 import { Alert, AlertIcon, AlertTitle, Box, CloseButton, VStack } from '@chakra-ui/react';
 
-import { useEventForm } from '../../hooks/useEventForm';
-import { useEventOperations } from '../../hooks/useEventOperations';
 import { useNotifications } from '../../hooks/useNotifications';
 
 export const Notifications = ({ events }) => {

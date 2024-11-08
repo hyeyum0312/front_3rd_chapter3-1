@@ -2,9 +2,9 @@ import { useToast } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { useFetchEvents } from './useFetchEvents';
-import { deleteEventApi } from '../apis/deleteEventApi';
-import { saveEventApi } from '../apis/saveEventApi';
-import { Event, EventForm } from '../types';
+import { deleteEventApi } from '../../entities/apis/deleteEventApi';
+import { saveEventApi } from '../../entities/apis/saveEventApi';
+import { Event, EventForm } from '../../types';
 
 export const useEventOperations = (editing: boolean, onSave?: () => void) => {
   const toast = useToast();

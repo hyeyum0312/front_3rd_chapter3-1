@@ -1,4 +1,4 @@
-import { EventForm } from '../types';
+import { EventForm } from '../../types';
 
 export const saveEventApi = async (eventData: Event | EventForm, editing: boolean) => {
   const method = editing ? 'PUT' : 'POST';

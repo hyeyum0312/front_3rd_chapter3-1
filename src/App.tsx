@@ -1,12 +1,12 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-import { Notifications } from './components/alert/notifications.tsx';
-import { MainAlertView } from './components/alert/mainAlertView.tsx';
-import { MainCalendarView } from './components/calendarViews/MainCalendarView.tsx';
-import { MainSearchView } from './components/eventCalendarViews/MainSearchView.tsx';
-import { EventScheduleForm } from './components/EventScheduleForm.tsx';
-import { useFetchEvents } from './hooks/useFetchEvents.ts';
+import { Notifications } from './feature/ui/alert/notifications.tsx';
+import { MainAlertView } from './feature/ui/alert/mainAlertView.tsx';
+import { MainCalendarView } from './feature/ui/calendarViews/MainCalendarView.tsx';
+import { MainSearchView } from './feature/ui/eventCalendarViews/MainSearchView.tsx';
+import { EventScheduleForm } from './feature/ui/EventScheduleForm.tsx';
+import { useFetchEvents } from './feature/hooks/useFetchEvents.ts';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);

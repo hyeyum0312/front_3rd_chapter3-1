@@ -13,12 +13,12 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { categories, notificationOptions } from '../constants/eventData';
+import { categories, notificationOptions } from '../../constants/eventData';
 import { useEventForm } from '../hooks/useEventForm';
 import { useEventOperations } from '../hooks/useEventOperations';
-import { Event, EventForm, RepeatType } from '../types';
-import { findOverlappingEvents } from '../utils/eventOverlap';
-import { getTimeErrorMessage } from '../utils/timeValidation';
+import { Event, EventForm, RepeatType } from '../../types';
+import { findOverlappingEvents } from '../../entities/utils/eventOverlap';
+import { getTimeErrorMessage } from '../../entities/utils/timeValidation';
 
 export const EventScheduleForm = ({ events }) => {
   const {

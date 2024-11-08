@@ -1,8 +1,8 @@
 import { BellIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { Box, HStack, IconButton, Text, VStack } from '@chakra-ui/react';
 
-import { notificationOptions } from '../../constants/eventData';
-import { Event } from '../../types';
+import { notificationOptions } from '../../../constants/eventData';
+import { Event } from '../../../types';
 
 interface Props {
   event: Event;

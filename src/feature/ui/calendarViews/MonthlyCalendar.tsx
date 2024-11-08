@@ -13,9 +13,14 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import { weekDays } from '../../constants/calendarData';
-import { Event } from '../../types';
-import { formatDate, formatMonth, getEventsForDay, getWeeksAtMonth } from '../../utils/dateUtils';
+import { weekDays } from '../../../constants/calendarData';
+import { Event } from '../../../types';
+import {
+  formatDate,
+  formatMonth,
+  getEventsForDay,
+  getWeeksAtMonth,
+} from '../../../entities/utils/dateUtils';
 
 interface Props {
   currentDate: Date;
