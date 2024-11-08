@@ -14,13 +14,15 @@ import {
 import { useState } from 'react';
 
 import { categories, notificationOptions } from '../../constants/eventData';
-import { useEventForm } from '../hooks/useEventForm';
-import { useEventOperations } from '../hooks/useEventOperations';
-import { Event, EventForm, RepeatType } from '../../types';
 import { findOverlappingEvents } from '../../entities/utils/eventOverlap';
 import { getTimeErrorMessage } from '../../entities/utils/timeValidation';
+import { Event, EventForm, RepeatType } from '../../types';
+import { useEventForm } from '../hooks/useEventForm';
+import { useEventOperations } from '../hooks/useEventOperations';
+import { useFetchEvents } from '../hooks/useFetchEvents';
 
-export const EventScheduleForm = ({ events }) => {
+export const EventScheduleForm = () => {
+  const { events } = useFetchEvents();
   const {
     title,
     setTitle,
@@ -98,6 +100,7 @@ export const EventScheduleForm = ({ events }) => {
     };
 
     const overlapping = findOverlappingEvents(eventData, events);
+
     if (overlapping.length > 0) {
       setOverlappingEvents(overlapping);
       setIsOverlapDialogOpen(true);

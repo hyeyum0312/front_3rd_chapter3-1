@@ -1,18 +1,24 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Heading, HStack, IconButton, Select, VStack } from '@chakra-ui/react';
-
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { MonthlyCalendar } from './MonthlyCalendar';
 import { WeeklyCalender } from './WeeklyCalendar';
 import { useCalendarView } from '../../hooks/useCalendarView';
+import { useFetchEvents } from '../../hooks/useFetchEvents';
 import { useNotifications } from '../../hooks/useNotifications';
 import { useSearch } from '../../hooks/useSearch';
 
-export const MainCalendarView = React.memo(({ events }) => {
+export const MainCalendarView = React.memo(() => {
+  const { events, isLoading, error, fetchEvents } = useFetchEvents(); // 상태와 함수는 훅에서 관리
   const { view, setView, navigate, currentDate, holidays } = useCalendarView();
   const { filteredEvents } = useSearch(events, currentDate, view);
   const { notifiedEvents } = useNotifications(events);
+
+  useEffect(() => {
+    // 처음 렌더링 시 이벤트를 가져옵니다.
+    fetchEvents();
+  }, [fetchEvents]);
 
   return (
     <VStack flex={1} spacing={5} align="stretch">

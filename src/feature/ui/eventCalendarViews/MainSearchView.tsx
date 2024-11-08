@@ -1,18 +1,43 @@
-import { FormControl, FormLabel, Input, Text, VStack } from '@chakra-ui/react';
+import { Box, FormControl, FormLabel, Input, Spinner, Text, VStack } from '@chakra-ui/react';
+
+import { useEffect } from 'react';
 
 import { EventCard } from './EventCard';
 import { useCalendarView } from '../../hooks/useCalendarView';
 import { useEventForm } from '../../hooks/useEventForm';
 import { useEventOperations } from '../../hooks/useEventOperations';
+import { useFetchEvents } from '../../hooks/useFetchEvents';
 import { useNotifications } from '../../hooks/useNotifications';
 import { useSearch } from '../../hooks/useSearch';
 
-export const MainSearchView = ({ events }) => {
+export const MainSearchView = () => {
+  const { events, isLoading, error, fetchEvents } = useFetchEvents(); // 상태와 함수는 훅에서 관리
   const { editingEvent, setEditingEvent, editEvent } = useEventForm();
   const { deleteEvent } = useEventOperations(Boolean(editingEvent), () => setEditingEvent(null));
   const { view, currentDate } = useCalendarView();
   const { searchTerm, filteredEvents, setSearchTerm } = useSearch(events, currentDate, view);
   const { notifiedEvents } = useNotifications(events);
+
+  useEffect(() => {
+    // 처음 렌더링 시 이벤트를 가져옵니다.
+    fetchEvents();
+  }, [fetchEvents]);
+
+  if (isLoading) {
+    return (
+      <Box w="full" h="full" display="flex" justifyContent="center" alignItems="center">
+        <Spinner size="xl" />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box color="red" textAlign="center">
+        <Text>이벤트를 가져오는 데 실패했습니다.</Text>
+      </Box>
+    );
+  }
 
   return (
     <VStack data-testid="event-list" w="500px" h="full" overflowY="auto">

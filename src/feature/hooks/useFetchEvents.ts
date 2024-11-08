@@ -1,22 +1,28 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+import { useRecoilState } from 'recoil';
+
+import { fetchEventsApi } from '../../entities/apis/fetchEventsApi';
+import { errorState, eventsState, isLoadingState } from '../stores/eventsState';
 
 export const useFetchEvents = () => {
-  const [, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useRecoilState(eventsState);
+  const [isLoading, setIsLoading] = useRecoilState(isLoadingState);
+  const [error, setError] = useRecoilState(errorState);
 
-  const fetchEvents = useCallback(async (): Promise<Event[]> => {
-    // eslint-disable-next-line no-useless-catch
+  const fetchEvents = useCallback(async (): Promise<void> => {
+    setIsLoading(true);
+    setError(null);
+
     try {
-      const response = await fetch('/api/events');
-      if (!response.ok) {
-        throw new Error(`Failed to fetch events. Status: ${response.status}`);
-      }
-      const { events } = await response.json();
-      setEvents(events);
-      return events;
-    } catch (error) {
-      throw error; // 에러를 던져 호출하는 쪽에서 처리
+      const fetchedEvents = await fetchEventsApi(); // 데이터를 받아옵니다.
+      setEvents(fetchedEvents); // 상태 업데이트
+    } catch (err) {
+      setError('이벤트를 가져오는 데 실패했습니다.'); // 에러 상태 설정
+      console.error('Error fetching events:', err);
+    } finally {
+      setIsLoading(false); // 로딩 상태 종료
     }
-  }, []);
+  }, [setEvents, setIsLoading, setError]);
 
-  return { fetchEvents };
+  return { events, isLoading, error, fetchEvents };
 };

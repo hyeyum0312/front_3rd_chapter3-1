@@ -1,8 +1,19 @@
-import { Alert, AlertIcon, AlertTitle, Box, CloseButton, VStack } from '@chakra-ui/react';
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  Box,
+  CloseButton,
+  useEditable,
+  VStack,
+} from '@chakra-ui/react';
 
+import { useFetchEvents } from '../../hooks/useFetchEvents';
 import { useNotifications } from '../../hooks/useNotifications';
+import { useEffect } from 'react';
 
-export const Notifications = ({ events }) => {
+export const Notifications = () => {
+  const { events, isLoading, error, fetchEvents } = useFetchEvents(); // 상태와 함수는 훅에서 관리
   const { notifications, setNotifications } = useNotifications(events);
 
   return (
