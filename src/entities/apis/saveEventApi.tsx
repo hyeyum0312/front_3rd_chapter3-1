@@ -10,8 +10,6 @@ export const saveEventApi = async (eventData: Event | EventForm, editing: boolea
     body: JSON.stringify(eventData),
   });
 
-  console.log('response', response);
-
   if (!response.ok) {
     throw new Error('Failed to save event');
   }

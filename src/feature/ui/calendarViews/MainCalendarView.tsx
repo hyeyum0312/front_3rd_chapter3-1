@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { Heading, HStack, IconButton, Select, VStack } from '@chakra-ui/react';
+import { Heading, HStack, IconButton, Select, VStack, Box } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 
 import { MonthlyCalendar } from './MonthlyCalendar';
@@ -16,9 +16,11 @@ export const MainCalendarView = React.memo(() => {
   const { notifiedEvents } = useNotifications(events);
 
   useEffect(() => {
-    // 처음 렌더링 시 이벤트를 가져옵니다.
-    fetchEvents();
-  }, [fetchEvents]);
+    if (!events.length) {
+      // 이벤트가 없을 때만 데이터를 불러옵니다
+      fetchEvents();
+    }
+  }, [fetchEvents, events.length]);
 
   return (
     <VStack flex={1} spacing={5} align="stretch">
@@ -47,20 +49,28 @@ export const MainCalendarView = React.memo(() => {
         />
       </HStack>
 
-      {view === 'week' && (
-        <WeeklyCalender
-          filteredEvents={filteredEvents}
-          currentDate={currentDate}
-          notifiedEvents={notifiedEvents}
-        />
-      )}
-      {view === 'month' && (
-        <MonthlyCalendar
-          currentDate={currentDate}
-          filteredEvents={filteredEvents}
-          notifiedEvents={notifiedEvents}
-          holidays={holidays}
-        />
+      {isLoading ? (
+        <Box>Loading...</Box> // 로딩 중 UI 추가
+      ) : error ? (
+        <Box color="red">Error: {error}</Box> // 에러 처리 UI 추가
+      ) : (
+        <>
+          {view === 'week' && (
+            <WeeklyCalender
+              filteredEvents={filteredEvents}
+              currentDate={currentDate}
+              notifiedEvents={notifiedEvents}
+            />
+          )}
+          {view === 'month' && (
+            <MonthlyCalendar
+              currentDate={currentDate}
+              filteredEvents={filteredEvents}
+              notifiedEvents={notifiedEvents}
+              holidays={holidays}
+            />
+          )}
+        </>
       )}
     </VStack>
   );

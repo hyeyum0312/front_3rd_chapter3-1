@@ -14,8 +14,8 @@ import {
 } from '@chakra-ui/react';
 
 import { weekDays } from '../../../constants/calendarData';
-import { Event } from '../../../types';
 import { formatWeek, getWeekDates } from '../../../entities/utils/dateUtils';
+import { Event } from '../../../types';
 
 interface Props {
   filteredEvents: Event[];

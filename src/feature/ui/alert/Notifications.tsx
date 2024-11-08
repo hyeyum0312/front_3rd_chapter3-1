@@ -10,7 +10,6 @@ import {
 
 import { useFetchEvents } from '../../hooks/useFetchEvents';
 import { useNotifications } from '../../hooks/useNotifications';
-import { useEffect } from 'react';
 
 export const Notifications = () => {
   const { events, isLoading, error, fetchEvents } = useFetchEvents(); // 상태와 함수는 훅에서 관리

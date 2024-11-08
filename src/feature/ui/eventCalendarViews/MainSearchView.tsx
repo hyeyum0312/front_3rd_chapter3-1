@@ -1,5 +1,4 @@
 import { Box, FormControl, FormLabel, Input, Spinner, Text, VStack } from '@chakra-ui/react';
-
 import { useEffect } from 'react';
 
 import { EventCard } from './EventCard';
